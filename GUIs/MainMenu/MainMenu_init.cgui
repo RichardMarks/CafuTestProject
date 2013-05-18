@@ -1,0 +1,104 @@
+-- This is a Cafu engine GUI script file, written by CaWE, the Cafu World Editor.
+-- You CAN edit this file manually, but note that CaWE may overwrite your changes.
+-- It is recommended that you place all your customizations like method overrides
+-- and effects into a separate .cgui file that calls dofile() for including this.
+
+
+-- Instantiation of all windows.
+-- *****************************
+
+MainUIWindow=gui:new("WindowT", "MainUIWindow");
+
+QuitButton=gui:new("WindowT", "QuitButton");
+
+StartButton=gui:new("WindowT", "StartButton");
+
+
+-- Set the GUIs root window.
+-- *************************
+
+gui:SetRootWindow(MainUIWindow);
+
+
+-- Setup the window hierarchy.
+-- ***************************
+
+MainUIWindow:AddChild(QuitButton);
+
+MainUIWindow:AddChild(StartButton);
+
+
+-- Initialization of the window contents ("constructor code").
+-- ***********************************************************
+
+function MainUIWindow:OnInit()
+    self:GetTransform():set("Pos", 0, 0)
+    self:GetTransform():set("Size", 500, 400)
+
+    local c1 = gui:new("ComponentBorderT")
+    c1:set("Width", 1)
+    c1:set("Color", 0, 1, 0)
+    c1:set("Alpha", 1)
+
+    local c2 = gui:new("ComponentTextT")
+    c2:set("Text", "Testing Cafu")
+    c2:set("Font", "Fonts/Impact")
+    c2:set("Scale", 1)
+    c2:set("Padding", 0, 0)
+    c2:set("Color", 0, 1, 0)
+    c2:set("Alpha", 1)
+    c2:set("hor. Align", 0)
+    c2:set("ver. Align", 0)
+
+    self:AddComponent(c1, c2)
+
+    gui:activate      (true);
+    gui:setInteractive(true);
+    gui:showMouse     (true);
+    gui:setFocus      (StartButton);
+end
+
+function QuitButton:OnInit()
+    self:GetTransform():set("Pos", 20, 340)
+    self:GetTransform():set("Size", 130, 40)
+
+    local c1 = gui:new("ComponentTextT")
+    c1:set("Text", "Quit Game")
+    c1:set("Font", "Fonts/Arial")
+    c1:set("Scale", 0.4)
+    c1:set("Padding", 0, 0)
+    c1:set("Color", 1, 0, 0)
+    c1:set("Alpha", 1)
+    c1:set("hor. Align", 0)
+    c1:set("ver. Align", 0)
+
+    local c2 = gui:new("ComponentBorderT")
+    c2:set("Width", 0.6)
+    c2:set("Color", 1, 0, 0)
+    c2:set("Alpha", 1)
+
+    self:AddComponent(c1, c2)
+end
+
+function StartButton:OnInit()
+    self:GetTransform():set("Pos", 355, 345)
+    self:GetTransform():set("Size", 130, 40)
+
+    local c1 = gui:new("ComponentTextT")
+    c1:set("Text", "Start Game")
+    c1:set("Font", "Fonts/Arial")
+    c1:set("Scale", 0.4)
+    c1:set("Padding", 0, 0)
+    c1:set("Color", 0, 1, 0)
+    c1:set("Alpha", 1)
+    c1:set("hor. Align", 0)
+    c1:set("ver. Align", 0)
+
+    local c2 = gui:new("ComponentBorderT")
+    c2:set("Width", 0.6)
+    c2:set("Color", 0, 1, 0)
+    c2:set("Alpha", 1)
+
+    self:AddComponent(c1, c2)
+end
+

@@ -1,0 +1,58 @@
+dofile("Games/CafuTestProject/GUIs/MainMenu/MainMenu_init.cgui");
+
+function MainUIWindow:OnKeyPress(Key)
+	if (Key==1) then
+		if (self.ClientState=="ingame") then
+			gui:close();
+		else
+			QuitButton:OnMouseButtonUp();
+		end
+		return true;
+	end
+	return false;
+end
+
+function QuitButton:OnMouseEnter()
+    self:GetComponent("Border"):set("Color", 1.0, 1.0, 0.0)
+    self:GetComponent("Text"):interpolate("Scale", 0.4, 0.45, 500)
+end
+
+function QuitButton:OnMouseLeave()
+    self:GetComponent("Border"):set("Color", 1, 0, 0)
+    self:GetComponent("Text"):interpolate("Scale", 0.45, 0.4, 500)
+end
+
+function QuitButton:OnMouseButtonUp()
+	if (self.IsShuttingDown) then return true; end;
+    self.IsShuttingDown=true;
+	gui:showMouse(false);
+	ci.RunCommand("quit=true;");
+    return true;
+end
+
+function StartGame(WorldName)
+	waitFrame();
+	ci.RunCommand("MusicStop();");
+	ci.RunCommand("changeLevel('"..WorldName.."');");
+	if (MainUIWindow.ServerState~="maploaded") then 
+		Console.Print("Cannot load"..WorldName.."!");
+		return
+	end
+	ci.RunCommand("connect('localhost', "..ci.GetValue("dlg_svPortNr")..");");
+end
+
+function StartButton:OnMouseEnter()
+    self:GetComponent("Border"):set("Color", 1.0, 1.0, 1.0)
+    self:GetComponent("Text"):interpolate("Scale", 0.4, 0.45, 500)
+end
+
+function StartButton:OnMouseLeave()
+    self:GetComponent("Border"):set("Color", 0, 1, 0)
+    self:GetComponent("Text"):interpolate("Scale", 0.45, 0.4, 500)
+end
+
+function StartButton:OnMouseButtonUp()
+	if (MainUIWindow.ServerState~="idle") then return; end
+	thread(StartGame, "basic_room");
+    return true;
+end

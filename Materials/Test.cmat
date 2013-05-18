@@ -1,0 +1,11 @@
+Textures/sci_fi_metal_floor
+{
+	diffusemap  Textures/sci_fi_metal_floor.png
+	lightmap	$lightmap
+}
+
+Textures/bad_grassy_floor
+{
+	diffusemap  Textures/bad_grassy_floor.png
+	lightmap	$lightmap
+}
